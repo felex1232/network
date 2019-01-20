@@ -16,10 +16,10 @@ func main() {
 }
 
 func StartClient() {
-	addr := "192.168.1.116:9999"
+	addr := "192.168.0.105:9999"
 	conn, err := net.Dial("tcp", addr)
 	if err != nil {
-		fmt.Errorf("dial server error %v", err)
+		fmt.Printf("dial server error %v", err)
 		return
 	}
 	//defer conn.Close()
@@ -42,14 +42,14 @@ func handleClient(conn net.Conn, connid int64) {
 
 		n, err := conn.Read(buffer)
 		if err != nil || n == 0 {
-			fmt.Errorf("handleClient error %v n %v", err, n)
+			fmt.Printf("handleClient error %v n %v", err, n)
 			return
 		}
 
 		// todo 设置包头 包体 包长度（基础 所以不写 只传数据）
 		heart := new(common.HeartBeat)
 		if err := json.Unmarshal(buffer[:n], &heart); err != nil {
-			fmt.Errorf("handleBuffer json unmarshal error %v", err)
+			fmt.Printf("handleBuffer json unmarshal error %v", err)
 			return
 		}
 

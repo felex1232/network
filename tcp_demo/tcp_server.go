@@ -13,10 +13,10 @@ func main() {
 }
 
 func startServer() {
-	addr := "192.168.1.116:9999"
+	addr := "192.168.0.105:9999"
 	listener, err := net.Listen("tcp", addr)
 	if err != nil {
-		fmt.Errorf("listen addr %v error %v\r\n", addr, err)
+		fmt.Printf("listen addr %v error %v\r\n", addr, err)
 		return
 	}
 	defer listener.Close()
@@ -57,7 +57,7 @@ func handleConn(conn net.Conn) {
 
 		//n, err := buffReader.Read(buffer)
 		if n == 0 || err != nil {
-			fmt.Errorf("conn read data len is 0 or read data error %v", err)
+			fmt.Printf("conn read data len is 0 or read data error %v", err)
 			break
 		}
 		bufferLen += n
