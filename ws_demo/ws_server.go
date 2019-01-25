@@ -1,17 +1,17 @@
-package main
+package ws_demo
 
 import (
 	//"bytes"
 	//"encoding/binary"
+	"encoding/json"
 	"fmt"
 	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
-	"sync"
-	"time"
 	"network/common"
-	"encoding/json"
+	"sync"
 	"sync/atomic"
+	"time"
 )
 
 func main() {
@@ -77,12 +77,12 @@ func handleWebsocketConnection(webc *WebSocketConn, connid uint32) {
 			break
 		}
 
-		seq ++
+		seq++
 		var heart common.HeartBeat
 		//rd := bytes.NewReader(message[0:16])
 		json.Unmarshal(message, &heart)
 		//binary.Read(rd, binary.BigEndian, &heart)
-		fmt.Printf("recieve seq %v client addr %v userid %v client heart beat\r\n", seq,c.RemoteAddr(),heart.UserID)
+		fmt.Printf("recieve seq %v client addr %v userid %v client heart beat\r\n", seq, c.RemoteAddr(), heart.UserID)
 		if heart.UserID > 0 {
 			time.Sleep(1 * time.Second)
 			data := common.SendHeart(2)
